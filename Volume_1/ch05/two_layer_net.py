@@ -66,8 +66,8 @@ class TwoLayerNet:
         
         layers = list(self.layers.values())
         layers.reverse()
-        for layer in layers:
-            dout = layer.backward(dout)
+        for layer in layers: # 각 층에 dW와 db값을 저장하도록 함
+            dout = layer.backward(dout) # 각 층의 dW를 구하기 위해선 각 층 뒤에 dx가 필요하기 때문에
 
         # 결과 저장
         grads = {}

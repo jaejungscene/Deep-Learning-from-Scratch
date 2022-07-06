@@ -14,6 +14,7 @@ def ReLU(x):
 def tanh(x):
     return np.tanh(x)
     
+
 input_data = np.random.randn(1000, 100)  # 1000개의 데이터
 node_num = 100  # 각 은닉층의 노드(뉴런) 수
 hidden_layer_size = 5  # 은닉층이 5개
@@ -33,7 +34,6 @@ for i in range(hidden_layer_size):
         activations[i] = w
 
     a = np.dot(x, w)
-
 
     # 활성화 함수도 바꿔가며 실험해보자！
     z = sigmoid(a)
