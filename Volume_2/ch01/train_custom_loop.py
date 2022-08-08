@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2')  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
 import numpy as np
 from common.optimizer import SGD
 from dataset import spiral
@@ -55,8 +55,8 @@ for epoch in range(max_epoch):
 
 # 학습 결과 플롯
 plt.plot(np.arange(len(loss_list)), loss_list, label='train')
-plt.xlabel('반복 (x10)')
-plt.ylabel('손실')
+plt.xlabel('iterations (x10)')
+plt.ylabel('loss')
 plt.show()
 
 # 경계 영역 플롯

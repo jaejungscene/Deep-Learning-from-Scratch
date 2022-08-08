@@ -1,9 +1,8 @@
-# coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2/')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2/ch04')
 from common.util import most_similar, analogy
 import pickle
-
 
 pkl_file = 'cbow_params.pkl'
 # pkl_file = 'skipgram_params.pkl'
@@ -13,6 +12,10 @@ with open(pkl_file, 'rb') as f:
     word_vecs = params['word_vecs']
     word_to_id = params['word_to_id']
     id_to_word = params['id_to_word']
+
+print(word_vecs.shape)
+print(len(word_to_id))
+print(len(id_to_word))
 
 # 가장 비슷한(most similar) 단어 뽑기
 querys = ['you', 'year', 'car', 'toyota']

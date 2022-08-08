@@ -51,7 +51,8 @@ def most_similar(query, word_to_id, id_to_word, word_matrix, top=5):
 
     print('\n[query] ' + query)
     query_id = word_to_id[query]
-    query_vec = word_matrix[query_id]
+    query_vec = word_matrix[query_id] # query들에 해당하는 query_vec
+    # print(query_vec.shape)
 
     # 코사인 유사도 계산
     vocab_size = len(id_to_word)
@@ -270,12 +271,14 @@ def analogy(a, b, c, word_to_id, id_to_word, word_matrix, top=5, answer=None):
             print('%s(을)를 찾을 수 없습니다.' % word)
             return
 
+    # word_matrix is word2vec
     print('\n[analogy] ' + a + ':' + b + ' = ' + c + ':?')
     a_vec, b_vec, c_vec = word_matrix[word_to_id[a]], word_matrix[word_to_id[b]], word_matrix[word_to_id[c]]
     query_vec = b_vec - a_vec + c_vec
     query_vec = normalize(query_vec)
-
-    similarity = np.dot(word_matrix, query_vec)
+    # print('query_vec.shape :',query_vec.shape)
+    similarity = np.dot(word_matrix, query_vec) # 유사도를 내적으로 구함
+    
 
     if answer is not None:
         print("==>" + answer + ":" + str(np.dot(word_matrix[word_to_id[answer]], query_vec)))

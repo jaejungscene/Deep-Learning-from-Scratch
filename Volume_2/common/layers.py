@@ -117,6 +117,7 @@ class SigmoidWithLoss:
         self.t = t
         self.y = 1 / (1 + np.exp(-x))
 
+        # M = np.c_[x, y] (x,y는 vector)라 하면, M의 1행은 x, 2행은 y가 됨
         self.loss = cross_entropy_error(np.c_[1 - self.y, self.y], self.t)
 
         return self.loss
@@ -154,14 +155,14 @@ class Embedding:
         self.grads = [np.zeros_like(W)]
         self.idx = None
 
-    def forward(self, idx):
+    def forward(self, idx): # idx 행에 있는 vector 반환
         W, = self.params
         self.idx = idx
         out = W[idx]
         return out
 
     def backward(self, dout):
-        dW, = self.grads
-        dW[...] = 0
+        dW, = self.grads # grads의 첫번째 list에 있는 ndarray반환
+        dW[...] = 0 # ndarray의 모든 값을 0으로 바꿈
         np.add.at(dW, self.idx, dout)
         return None

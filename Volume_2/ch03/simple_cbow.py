@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2')
 import numpy as np
 from common.layers import MatMul, SoftmaxWithLoss
 

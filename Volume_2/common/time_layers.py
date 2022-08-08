@@ -21,8 +21,9 @@ class RNN:
     def backward(self, dh_next):
         Wx, Wh, b = self.params
         x, h_prev, h_next = self.cache
-
-        dt = dh_next * (1 - h_next ** 2)
+        
+        #    (dL/dy) * (dy/dx)   { tanh(x)의 미분 -> 1-tanh(x)^2 }
+        dt = dh_next * (1 - h_next ** 2) 
         db = np.sum(dt, axis=0)
         dWh = np.dot(h_prev.T, dt)
         dh_prev = np.dot(dt, Wh.T)
@@ -47,16 +48,16 @@ class TimeRNN:
 
     def forward(self, xs):
         Wx, Wh, b = self.params
-        N, T, D = xs.shape
+        N, T, D = xs.shape # 미니배치크기, 타임, 차원
         D, H = Wx.shape
 
         self.layers = []
-        hs = np.empty((N, T, H), dtype='f')
+        hs = np.empty((N, T, H), dtype='f') # 특정값 할당없이 즉각적으로 공간 생성(따라서 값이 의미없는 무작위)
 
         if not self.stateful or self.h is None:
             self.h = np.zeros((N, H), dtype='f')
 
-        for t in range(T):
+        for t in range(T): # T개의 RNN 개층 생성후 forward()
             layer = RNN(*self.params)
             self.h = layer.forward(xs[:, t, :], self.h)
             hs[:, t, :] = self.h
@@ -70,11 +71,11 @@ class TimeRNN:
         D, H = Wx.shape
 
         dxs = np.empty((N, T, D), dtype='f')
-        dh = 0
+        dh = 0 # 끝단에서는 분기없이 바로 다음 layer에 전달된다.
         grads = [0, 0, 0]
         for t in reversed(range(T)):
             layer = self.layers[t]
-            dx, dh = layer.backward(dhs[:, t, :] + dh)
+            dx, dh = layer.backward(dhs[:, t, :] + dh) # 끝단 빼고는 출력이 분기됨으로 역전파시 합해야 됨.
             dxs[:, t, :] = dx
 
             for i, grad in enumerate(layer.grads):

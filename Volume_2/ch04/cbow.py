@@ -1,6 +1,5 @@
-# coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2/')
 from common.np import *  # import numpy as np
 from common.layers import Embedding
 from ch04.negative_sampling_layer import NegativeSamplingLoss
@@ -17,7 +16,7 @@ class CBOW:
         # 계층 생성
         self.in_layers = []
         for i in range(2 * window_size):
-            layer = Embedding(W_in)  # Embedding 계층 사용
+            layer = Embedding(W_in)  # Embedding 계층 사용, W_in 모두 공유
             self.in_layers.append(layer)
         self.ns_loss = NegativeSamplingLoss(W_out, corpus, power=0.75, sample_size=5)
 

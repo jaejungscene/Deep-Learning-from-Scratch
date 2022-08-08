@@ -1,6 +1,5 @@
-# coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2/')
 import numpy as np
 from common import config
 # GPU에서 실행하려면 아래 주석을 해제하세요(CuPy 필요).
@@ -25,8 +24,12 @@ max_epoch = 10
 # 데이터 읽기
 corpus, word_to_id, id_to_word = ptb.load_data('train')
 vocab_size = len(word_to_id)
+# print(corpus.shape) # (929589,)
 
 contexts, target = create_contexts_target(corpus, window_size)
+# print(contexts.shape) # (929579, 10)  window_size가 5이기 때문에 양끝 5개씩은 추론에서 제외
+                        # (929579,)
+# print(target.shape)
 if config.GPU:
     contexts, target = to_gpu(contexts), to_gpu(target)
 

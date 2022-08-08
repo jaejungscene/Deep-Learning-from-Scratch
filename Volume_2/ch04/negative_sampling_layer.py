@@ -1,6 +1,5 @@
-# coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2/')
 from common.np import *  # import numpy as np
 from common.layers import Embedding, SigmoidWithLoss
 import collections
@@ -14,8 +13,9 @@ class EmbeddingDot:
         self.cache = None
 
     def forward(self, h, idx):
-        target_W = self.embed.forward(idx)
-        out = np.sum(target_W * h, axis=1)
+        target_W = self.embed.forward(idx) # idx 행에 있는 vector 반환
+        out = np.sum(target_W * h, axis=1) # target_W의 각 행과 h의 각 행간의 내적
+                                           # 따라서 out.shape = target_W 또는 h의 행 갯수
 
         self.cache = (h, target_W)
         return out
@@ -32,7 +32,7 @@ class EmbeddingDot:
 
 class UnigramSampler:
     def __init__(self, corpus, power, sample_size):
-        self.sample_size = sample_size
+        self.sample_size = sample_size # 부정적인 예의 샘플링 횟수
         self.vocab_size = None
         self.word_p = None
 
@@ -75,7 +75,8 @@ class NegativeSamplingLoss:
     def __init__(self, W, corpus, power=0.75, sample_size=5):
         self.sample_size = sample_size
         self.sampler = UnigramSampler(corpus, power, sample_size)
-        self.loss_layers = [SigmoidWithLoss() for _ in range(sample_size + 1)]
+        # +1의 의미는 긍정적인 예를 다루는 계층이 하나 더 필요하기 때문이다.
+        self.loss_layers = [SigmoidWithLoss() for _ in range(sample_size + 1)] 
         self.embed_dot_layers = [EmbeddingDot(W) for _ in range(sample_size + 1)]
 
         self.params, self.grads = [], []
@@ -83,7 +84,7 @@ class NegativeSamplingLoss:
             self.params += layer.params
             self.grads += layer.grads
 
-    def forward(self, h, target):
+    def forward(self, h, target): # target은 긍정적인 예
         batch_size = target.shape[0]
         negative_sample = self.sampler.get_negative_sample(target)
 

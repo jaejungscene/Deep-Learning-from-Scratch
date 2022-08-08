@@ -1,10 +1,14 @@
 # coding: utf-8
 import sys, os
-sys.path.append(os.pardir)
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_1')
 
 import numpy as np
 from dataset.mnist import load_mnist
+# ============================================ #
+# float32와 float64 비교
+# from two_layer_net_float32 import TwoLayerNet
 from two_layer_net import TwoLayerNet
+# ============================================ #
 
 # 데이터 읽기
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
@@ -28,7 +32,7 @@ for i in range(iters_num):
     t_batch = t_train[batch_mask]
     
     # 기울기 계산
-    #grad = network.numerical_gradient(x_batch, t_batch) # 수치 미분 방식
+    # grad = network.numerical_gradient(x_batch, t_batch) # 수치 미분 방식
     grad = network.gradient(x_batch, t_batch) # 오차역전파법 방식(훨씬 빠르다)
     
     # 갱신
@@ -44,3 +48,7 @@ for i in range(iters_num):
         train_acc_list.append(train_acc)
         test_acc_list.append(test_acc)
         print(train_acc, test_acc)
+
+print('='*30)
+print(network.params['W1'].dtype)
+print('train_acc :',train_acc, '\ntest_acc :',test_acc)

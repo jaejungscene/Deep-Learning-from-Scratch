@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2')  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
 from dataset import ptb
 
 

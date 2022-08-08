@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2')  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
 import numpy as np
 from common.layers import Affine, Sigmoid, SoftmaxWithLoss
 

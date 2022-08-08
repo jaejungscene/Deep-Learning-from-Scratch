@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')
+sys.path.append('/Users/jaejungscene/Projects/Deep_Learning_from_Scratch/Volume_2')
 import numpy as np
 from common.layers import MatMul
 
@@ -24,3 +24,4 @@ h1 = in_layer1.forward(c1)
 h = 0.5 * (h0 + h1)
 s = out_layer.forward(h)
 print(s)
+print(s.argmax())
