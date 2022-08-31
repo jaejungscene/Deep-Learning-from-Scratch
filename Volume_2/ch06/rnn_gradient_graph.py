@@ -11,20 +11,21 @@ dh = np.ones((N, H))
 
 np.random.seed(3) # 재현할 수 있도록 난수의 시드 고정
 
-Wh = np.random.randn(H, H)
-#Wh = np.random.randn(H, H) * 0.5
+# Wh = np.random.randn(H, H)
+Wh = np.random.randn(H, H) * 0.5
 
 norm_list = []
 for t in range(T):
-    dh = np.dot(dh, Wh.T)
+    dh = np.dot(dh, Wh.T) # 2 x 3
     norm = np.sqrt(np.sum(dh**2)) / N
+    print(norm)
     norm_list.append(norm)
 
 print(norm_list)
 
 # 그래프 그리기
-plt.plot(np.arange(len(norm_list)), norm_list)
-plt.xticks([0, 4, 9, 14, 19], [1, 5, 10, 15, 20])
-plt.xlabel('시간 크기(time step)')
-plt.ylabel('노름(norm)')
-plt.show()
+# plt.plot(np.arange(len(norm_list)), norm_list)
+# plt.xticks([0, 4, 9, 14, 19], [1, 5, 10, 15, 20])
+# plt.xlabel('시간 크기(time step)')
+# plt.ylabel('노름(norm)')
+# plt.show()
